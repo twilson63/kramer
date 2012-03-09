@@ -1,7 +1,23 @@
+# # attr
+#
+# private function that creates attributes for xml document
+#
 attr = (attributes) ->
   xmlAttributes = " "
-  xmlAttributes += "#{key}=\"#{value}\" " for key, value of attributes
+  xmlAttributes += "#{key}=\"#{value}\" " for own key, value of attributes
   xmlAttributes
+
+# # node
+#
+# private function that create a node for an xml document
+#
+# ## parameters
+#
+# name      |   type          | description
+# ----------|-----------------|------------------------
+# key       | string          | node name of xml node
+# value     | object/string   | value of xml node
+# attributes| string/optional| attributes for a given node
 node = (key, value, attributes) -> 
   "<#{key}#{if attributes? then attributes.replace(/\s+$/, '') else ''}>#{value}</#{key}>"
 
@@ -15,12 +31,27 @@ parseNode = (data) ->
   xmlDoc = ""
   if typeof data is 'object'
     delete data['_'] # remove attr key
-    for k,v of data
+    for own k,v of data
       xmlDoc += node k, parseNode(v), parseAttr(k, v)
   else
     xmlDoc = data
   xmlDoc
 
+# # kramer
+# 
+# converts a javascript object to xml
+#
+# ##attributes
+# 
+# attribute   |   description
+# ------------|----------------------
+# root        | root node for the xml document
+# doc         | javascript object that is the body of the xml doc
+# 
+# ## returns
+# 
+# `xmldocument as string`
+#
 module.exports = (root, doc) ->
     attributes = parseAttr(root, doc)
     node root, parseNode(doc), attributes
