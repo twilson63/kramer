@@ -1,0 +1,21 @@
+{
+  "author": "Tom Wilson <tom@jackhq.com>",
+  "name": "kramer",
+  "description": "Converts Javascript Objects to Xml",
+  "version": "0.0.0",
+  "repository": {
+    "url": ""
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "engines": {
+    "node": "0.6"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "optionalDependencies": {}
+}
