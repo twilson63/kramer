@@ -21,8 +21,7 @@ parseNode = (data) ->
     xmlDoc = data
   xmlDoc
 
-module.exports = {
-  parse: (root, doc) ->
+module.exports = (root, doc) ->
     attributes = parseAttr(root, doc)
     node root, parseNode(doc), attributes
-}
+
