@@ -1,0 +1,50 @@
+<!DOCTYPE html>  <html> <head>   <title>index.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               index.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <h1>attr</h1>
+
+<p>private function that creates attributes for xml document</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nv">attr = </span><span class="nf">(attributes) -&gt;</span>
+  <span class="nv">xmlAttributes = </span><span class="s2">&quot; &quot;</span>
+  <span class="nx">xmlAttributes</span> <span class="o">+=</span> <span class="s2">&quot;#{key}=\&quot;#{value}\&quot; &quot;</span> <span class="k">for</span> <span class="nx">own</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">attributes</span>
+  <span class="nx">xmlAttributes</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h1>node</h1>
+
+<p>private function that create a node for an xml document</p>
+
+<h2>parameters</h2>
+
+<p>name      |   type          | description
+----------|-----------------|------------------------
+key       | string          | node name of xml node
+value     | object/string   | value of xml node
+attributes| string/optional| attributes for a given node</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nv">node = </span><span class="nf">(key, value, attributes) -&gt;</span> 
+  <span class="s2">&quot;&lt;#{key}#{if attributes? then attributes.replace(/\s+$/, &#39;&#39;) else &#39;&#39;}&gt;#{value}&lt;/#{key}&gt;&quot;</span>
+
+<span class="nv">parseAttr = </span><span class="nf">(key, value) -&gt;</span>
+  <span class="k">if</span> <span class="k">typeof</span> <span class="nx">value</span> <span class="o">is</span> <span class="s1">&#39;object&#39;</span>
+    <span class="k">if</span> <span class="nx">value</span><span class="p">[</span><span class="s1">&#39;_&#39;</span><span class="p">]</span><span class="o">?</span>
+      <span class="nv">attributes = </span><span class="nx">attr</span> <span class="nx">value</span><span class="p">[</span><span class="s1">&#39;_&#39;</span><span class="p">]</span>
+  <span class="nx">attributes</span>
+
+<span class="nv">parseNode = </span><span class="nf">(data) -&gt;</span>
+  <span class="nv">xmlDoc = </span><span class="s2">&quot;&quot;</span>
+  <span class="k">if</span> <span class="k">typeof</span> <span class="nx">data</span> <span class="o">is</span> <span class="s1">&#39;object&#39;</span>
+    <span class="k">delete</span> <span class="nx">data</span><span class="p">[</span><span class="s1">&#39;_&#39;</span><span class="p">]</span> <span class="c1"># remove attr key</span>
+    <span class="k">for</span> <span class="nx">own</span> <span class="nx">k</span><span class="p">,</span><span class="nx">v</span> <span class="k">of</span> <span class="nx">data</span>
+      <span class="nx">xmlDoc</span> <span class="o">+=</span> <span class="nx">node</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">parseNode</span><span class="p">(</span><span class="nx">v</span><span class="p">),</span> <span class="nx">parseAttr</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+  <span class="k">else</span>
+    <span class="nv">xmlDoc = </span><span class="nx">data</span>
+  <span class="nx">xmlDoc</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h1>kramer</h1>
+
+<p>converts a javascript object to xml</p>
+
+<h2>attributes</h2>
+
+<p>attribute   |   description
+------------|----------------------
+root        | root node for the xml document
+doc         | javascript object that is the body of the xml doc</p>
+
+<h2>returns</h2>
+
+<p><code>xmldocument as string</code></p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nv">module.exports = </span><span class="nf">(root, doc) -&gt;</span>
+    <span class="nv">attributes = </span><span class="nx">parseAttr</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span>
+    <span class="nx">node</span> <span class="nx">root</span><span class="p">,</span> <span class="nx">parseNode</span><span class="p">(</span><span class="nx">doc</span><span class="p">),</span> <span class="nx">attributes</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
