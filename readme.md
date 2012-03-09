@@ -12,7 +12,7 @@ A Javascript Object to XML Parser
 var kramer = require('kramer');
 
 var doc = {
-  attr: { version: '1', build: '2' },
+  _: { version: '1', build: '2' },
   foo: 'bar'
 }
 
