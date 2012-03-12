@@ -13,10 +13,13 @@ var kramer = require('kramer');
 
 var doc = {
   _: { version: '1', build: '2' },
-  foo: 'bar'
+  foo: {
+    _: { cool: 'beans' },
+    text: 'bar'
+  }
 }
 
-var xml = kramer.parse('root', doc);
+var xml = kramer('root', doc);
 
 console.log(xml);
 ```
@@ -25,7 +28,7 @@ console.log(xml);
 
 ``` 
 <root version='1' build='2'>
-  <foo>bar</foo>
+  <foo cool="beans">bar</foo>
 </root>
 ```
 
