@@ -19,7 +19,10 @@ attr = (attributes) ->
 # value     | object/string   | value of xml node
 # attributes| string/optional| attributes for a given node
 node = (key, value, attributes) -> 
-  "<#{key}#{if attributes? then attributes.replace(/\s+$/, '') else ''}>#{value}</#{key}>"
+  if key.match /(text)|(Text)/
+    value
+  else
+    "<#{key}#{if attributes? then attributes.replace(/\s+$/, '') else ''}>#{value}</#{key}>"
 
 parseAttr = (key, value) ->
   if typeof value is 'object'
