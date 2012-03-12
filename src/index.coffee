@@ -33,9 +33,10 @@ parseAttr = (key, value) ->
 parseNode = (data) ->
   xmlDoc = ""
   if typeof data is 'object'
-    delete data['_'] # remove attr key
+    #delete data['_'] # remove attr key
     for own k,v of data
-      xmlDoc += node k, parseNode(v), parseAttr(k, v)
+      attributes = parseAttr(k, v) 
+      xmlDoc += node(k, parseNode(v), attributes) unless k == '_'
   else
     xmlDoc = data
   xmlDoc

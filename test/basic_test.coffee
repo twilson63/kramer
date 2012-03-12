@@ -25,9 +25,18 @@ describe 'kramer js to xml', ->
     xml = kramer 'root', doc
     xml.should.equal "<root version=\"1\" build=\"6\"><foo>bar</foo><bar>foo</bar></root>"
 
-  it "should parse multiple attributes", ->
+  it "should parse multiple attributes and set value directly", ->
     doc = 
       _: { version: '1', build: '6' }
       text: 'bar'
     xml = kramer 'root', doc
     xml.should.equal "<root version=\"1\" build=\"6\">bar</root>"
+
+  it "should parse multiple attributes and set value directly", ->
+    doc = 
+      _: { version: '1', build: '6' }
+      foo: 
+        _: { cool: 'beans' }
+        text: 'bar'
+    xml = kramer 'root', doc
+    xml.should.equal "<root version=\"1\" build=\"6\"><foo cool=\"beans\">bar</foo></root>"

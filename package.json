@@ -2,7 +2,7 @@
   "author": "Tom Wilson <tom@jackhq.com>",
   "name": "kramer",
   "description": "Converts Javascript Objects to Xml",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": {
     "url": ""
   },
